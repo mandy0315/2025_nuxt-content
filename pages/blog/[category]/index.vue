@@ -1,11 +1,29 @@
 <script setup lang="ts">
+
 const route = useRoute();
+
+// 文章列表
 const { data: posts } = await useAsyncData(route.path, () => {
   return queryCollection('blog').where('category', '=', route.params.category).order('date', 'DESC').select('title', 'path', 'category', 'image', 'description', 'date').all()
 })
+
+// 麵包屑-列表
+const breadcrumbs = ref<Array<{
+  title: string;
+  path: string;
+}>>([]);
+
+
 </script>
 <template>
-  <h1 class="text-4xl font-bold py-4 capitalize">category: {{ route.params.category }}</h1>
+  {{ route }}
+  <div>
+    <h1 class="text-4xl text-center font-bold py-4 capitalize">category: {{ route.params.category }}</h1>
+
+    <nav class="text-center">
+
+    </nav>
+  </div>
 
   <div class="grid grid-cols-3 gap-4">
 
@@ -18,7 +36,7 @@ const { data: posts } = await useAsyncData(route.path, () => {
 
       <NuxtLink :to="`/blog/${post.category}`" class="text-sm border rounded py-0.5 px-1 inline-block">{{
         post.category
-      }}</NuxtLink>
+        }}</NuxtLink>
       <p class="inline-block">{{ post.date }}</p>
 
       <NuxtLink :to="post.path">
@@ -29,3 +47,16 @@ const { data: posts } = await useAsyncData(route.path, () => {
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+nav {
+  li::after {
+    content: '>';
+    margin: 0 0.5rem;
+  }
+
+  li:last-child::after {
+    content: '';
+  }
+}
+</style>

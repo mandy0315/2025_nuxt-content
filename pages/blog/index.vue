@@ -1,12 +1,11 @@
 <script setup lang="ts">
-
 const route = useRoute();
 const { data: posts } = await useAsyncData(route.path, () => {
   return queryCollection('blog').order('date', 'DESC').select('title', 'path', 'category', 'image', 'description', 'date').all()
 })
 </script>
 <template>
-  <h1 class="text-4xl font-bold py-4 capitalize">blog</h1>
+  <h1 class="text-4xl text-center font-bold py-4 capitalize">blog</h1>
 
   <div class="grid grid-cols-3 gap-4">
 

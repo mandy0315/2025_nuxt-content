@@ -6,5 +6,17 @@ export default {
     "./app.vue",
     "./plugins/**/*.{js,ts}",
   ],
+  theme: {
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: "100%", // 或是 'none'
+          },
+        },
+      },
+    },
+  },
+
   plugins: [require("@tailwindcss/typography")],
 };
