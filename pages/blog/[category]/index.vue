@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { NuxtLink } from '#components';
+
 
 const route = useRoute();
 
@@ -7,22 +9,12 @@ const { data: posts } = await useAsyncData(route.path, () => {
   return queryCollection('blog').where('category', '=', route.params.category).order('date', 'DESC').select('title', 'path', 'category', 'image', 'description', 'date').all()
 })
 
-// 麵包屑-列表
-const breadcrumbs = ref<Array<{
-  title: string;
-  path: string;
-}>>([]);
-
 
 </script>
 <template>
-  {{ route }}
-  <div>
+  <div class="text-center pb-6">
     <h1 class="text-4xl text-center font-bold py-4 capitalize">category: {{ route.params.category }}</h1>
-
-    <nav class="text-center">
-
-    </nav>
+    <NuxtLink class="capitalize hover:text-blue-400" to="/blog">back to blog</NuxtLink>
   </div>
 
   <div class="grid grid-cols-3 gap-4">
@@ -36,7 +28,7 @@ const breadcrumbs = ref<Array<{
 
       <NuxtLink :to="`/blog/${post.category}`" class="text-sm border rounded py-0.5 px-1 inline-block">{{
         post.category
-        }}</NuxtLink>
+      }}</NuxtLink>
       <p class="inline-block">{{ post.date }}</p>
 
       <NuxtLink :to="post.path">
