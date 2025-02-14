@@ -1,6 +1,15 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/content", "@nuxtjs/tailwindcss", "@nuxt/image"],
+  modules: [
+    "@nuxt/content",
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image",
+    "@nuxt/icon",
+  ],
   css: ["@/assets/css/base.scss"],
-  compatibilityDate: "2025-02-06",
+  icon: {
+    serverBundle: {
+      collections: ["solar"],
+    },
+  },
 });
