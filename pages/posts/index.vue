@@ -16,7 +16,7 @@ const { data: posts } = await useAsyncData(route.path, () => {
         </div>
       </NuxtLink>
 
-      <p class="inline-block text-gray-500">{{ post.date }}</p>
+      <p v-date-format="post.date" class="inline-block text-gray-500"></p>
 
       <NuxtLink :to="post.path">
         <p class="text-2xl"> {{ post.title }}</p>
