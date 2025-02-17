@@ -10,13 +10,10 @@
   --text-color: #fff;
   --bg-color: #333;
 }
- 
-html {
-  scroll-behavior: smooth; // 滾動效果
-}
 
-body {
+body,html {
   color: var(--text-color);
   background-color: var(--bg-color);
   transition: background-color 0.3s, color 0.3s;
+  scroll-behavior: smooth; // 滾動效果
 }
