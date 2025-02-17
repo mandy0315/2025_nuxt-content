@@ -103,7 +103,7 @@ onMounted(() => {
     <div class="col-span-8 pb-10">
       <div class="border-b pb-6 pt-4">
         <!-- 麵包屑 -->
-        <nav v-if="breadcrumbs">
+        <nav v-if="breadcrumbs" class="c-text-gray">
           <div class="inline-block" v-for="item in breadcrumbs" :key="item.path">
             <component :is="item.title === post.title ? 'span' : 'button'"
               :class="item.title === post.title ? 'cursor-default' : 'hover:text-blue-400'"
@@ -114,7 +114,7 @@ onMounted(() => {
         </nav>
 
         <h1 class="text-3xl">{{ post.title }}</h1>
-        <p class="text-gray-600">{{ post.description }}</p>
+        <p>{{ post.description }}</p>
       </div>
 
       <!-- 文章內容 -->
@@ -123,12 +123,9 @@ onMounted(() => {
       </article>
 
       <!-- 上下篇文章 -->
-      <ul class="grid grid-cols-2 gap-8">
-        <li class="col-span-1 w-full last:text-right" v-for="surround in surroundings">
-          <NuxtLink v-if="surround" class="w-full p-2 border block" :to="surround.path">
-
-            <p>{{ surround.title }}</p>
-          </NuxtLink>
+      <ul class="grid grid-cols-2 gap-x-4">
+        <li class="col-span-1 w-full block " v-for="(surround, idx) in surroundings" :key="idx">
+          <USurroundCard :path="surround?.path ? surround.path : '/posts'" :title="surround?.title" :idx />
         </li>
       </ul>
     </div>
@@ -136,7 +133,7 @@ onMounted(() => {
       <!-- 右側目錄 -->
       <aside class="sticky top-[--header-height] pt-10 pl-4">
         <p class="font-medium pb-2">目錄</p>
-        <ul class="text-gray-600">
+        <ul class="c-text-gray">
           <li v-for="section in sectionsInfo">
             <div class=" hover:text-blue-400 cursor-pointer"
               :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
