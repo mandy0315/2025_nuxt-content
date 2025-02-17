@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* @tailwindcss/typography 樣式套件修改 */
+.prose :where(h1 a, h2 a, h3 a, h4 a):not(:where([class~=not-prose], [class~=not-prose] *)) {
+  @apply no-underline;
+}
+
+@layer base {
+  :root {
+    --text-color: #333;
+    --bg-color: #fff;
+  }
+
+  .dark {
+    --text-color: #fff;
+    --bg-color: #333;
+  }
+
+  body,
+  html {
+    @apply transition-colors duration-300;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .c-text-gray {
+    @apply text-gray-500 dark:text-gray-300;
+  }
+
+  .c-border-gray {
+    @apply border-gray-200 dark:border-gray-600;
+  }
+}
+
+@theme {
+  --color-c-main-blue: #62a4f5;
+  --spacing-c-header-height: 4rem;
+}

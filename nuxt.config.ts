@@ -1,15 +1,15 @@
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: [
-    "@nuxt/content",
-    "@nuxtjs/tailwindcss",
-    "@nuxt/image",
-    "@nuxt/icon",
-    "@nuxtjs/color-mode",
-  ],
+  modules: ["@nuxt/content", "@nuxt/image", "@nuxt/icon", "@nuxtjs/color-mode"],
 
-  css: ["@/assets/css/main.scss"],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+
+  css: ["@/assets/css/tailwind.css"],
 
   icon: {
     serverBundle: {

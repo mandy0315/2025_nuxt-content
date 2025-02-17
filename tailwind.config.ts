@@ -1,10 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+import type { Config } from "tailwindcss";
 
-const customColors = {
-  'c-main-blue': '#47a0f8',
-};
-
-module.exports = {
+export default <Partial<Config>>{
   content: [
     "./components/**/*.{vue,js,ts}",
     "./layouts/**/*.vue",
@@ -14,10 +10,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      textColor: theme => ({
-        ...theme('colors'),
-        ...customColors,
-      }),
       typography: {
         DEFAULT: {
           css: {

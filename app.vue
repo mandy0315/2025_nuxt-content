@@ -7,7 +7,7 @@ const colorMode = useColorMode();
   <Body :class="colorMode.value">
     <AppHeader />
 
-    <main class="min-h-[calc(100vh-var(--header-height))]">
+    <main class="min-h-[calc(100vh-theme(spacing.c-header-height))]">
       <NuxtPage />
     </main>
 

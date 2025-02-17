@@ -101,7 +101,7 @@ onMounted(() => {
 <template>
   <div v-if="post" class="grid grid-cols-10 gap-x-8 ">
     <div class="col-span-8 pb-10">
-      <div class="border-b pb-6 pt-4">
+      <div class="border-b pb-6 pt-4 c-border-gray">
         <!-- 麵包屑 -->
         <nav v-if="breadcrumbs" class="c-text-gray">
           <div class="inline-block" v-for="item in breadcrumbs" :key="item.path">
@@ -113,6 +113,7 @@ onMounted(() => {
           </div>
         </nav>
 
+        <UDate :date="post.date" />
         <h1 class="text-3xl">{{ post.title }}</h1>
         <p>{{ post.description }}</p>
       </div>
@@ -131,7 +132,7 @@ onMounted(() => {
     </div>
     <div class="col-span-2">
       <!-- 右側目錄 -->
-      <aside class="sticky top-[--header-height] pt-10 pl-4">
+      <aside class="sticky top-c-header-height pt-10 pl-4">
         <p class="font-medium pb-2">目錄</p>
         <ul class="c-text-gray">
           <li v-for="section in sectionsInfo">
