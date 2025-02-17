@@ -1,6 +1,22 @@
 :root {
   --header-height: 4rem;
 }
+
+.light {
+  --text-color: #333;
+  --bg-color: #fff;
+}
+.dark {
+  --text-color: #fff;
+  --bg-color: #333;
+}
+ 
 html {
   scroll-behavior: smooth; // 滾動效果
+}
+
+body {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  transition: background-color 0.3s, color 0.3s;
 }

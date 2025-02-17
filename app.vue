@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { AppHeader } from '#components';
 
+const colorMode = useColorMode();
 </script>
 
 <template>
-  <div>
+  <Body :class="colorMode.value">
     <AppHeader />
 
     <main class="min-h-[calc(100vh-var(--header-height))]">
@@ -12,5 +12,5 @@ import { AppHeader } from '#components';
     </main>
 
     <AppFooter />
-  </div>
+  </Body>
 </template>

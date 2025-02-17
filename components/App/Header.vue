@@ -1,6 +1,6 @@
-<script setup lang="ts">
-
-</script>
 <template>
-  <header class="bg-blue-200 w-full h-[--header-height] sticky top-0">header</header>
+  <header class="bg-[--background-color] h-[--header-height] flex border-b w-full sticky top-0 justify-between">
+    <p>header</p>
+    <ColorModelIcon />
+  </header>
 </template>
