@@ -12,7 +12,7 @@ export default defineContentConfig({
         tags: z.array(z.string()),
         navigation: z.boolean(),
         image: z.string(),
-        date: z.date(),
+        date: z.string(),
       }),
     }),
   },
