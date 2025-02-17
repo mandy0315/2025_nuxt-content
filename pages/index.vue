@@ -2,5 +2,5 @@
 </script>
 
 <template>
-  <div>首頁- nuxt3 contant 練習</div>
+  <div class="text-c-main-blue">首頁- nuxt3 contant 練習</div>
 </template>

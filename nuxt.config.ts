@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
   ],
 
-  css: ["@/assets/css/base.scss"],
+  css: ["@/assets/css/main.scss"],
 
   icon: {
     serverBundle: {
