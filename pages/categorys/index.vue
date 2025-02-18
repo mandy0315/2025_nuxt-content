@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
-const router = useRouter();
+const { goToCategoryPage } = useCategory();
+
 const { data: categorys } = await useAsyncData(route.path, async () => {
   const selectItemInPosts = await queryCollection('posts').order('date', 'DESC').select('title', 'categorys').all();
   // 從物件陣列取出 categorys 並合併成一個陣列
@@ -9,11 +10,6 @@ const { data: categorys } = await useAsyncData(route.path, async () => {
   const uniqueCategorys = Array.from(new Set(categorys));
   return uniqueCategorys;
 })
-
-const handleToCategoryPage = (category: string) => {
-  const path = encodeURI(`/categorys/${category}`);
-  router.push(path);
-}
 </script>
 <template>
   <div>
@@ -27,7 +23,8 @@ const handleToCategoryPage = (category: string) => {
     </UPageTitle>
 
     <div class="max-w-200 mx-auto">
-      <button class="mx-1" v-for="category in categorys" :key="category" @click="handleToCategoryPage(category)">
+      <button class="px-1 cursor-pointer" v-for="category in categorys" :key="category"
+        @click="goToCategoryPage(category)">
         <UTag class="text-lg rounded-3xl">{{ category }}</UTag>
       </button>
     </div>
