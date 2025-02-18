@@ -7,6 +7,11 @@
   @apply no-underline;
 }
 
+@theme {
+  --color-c-main-blue: #62a4f5;
+  --spacing-c-header-height: 4rem;
+}
+
 @layer base {
   :root {
     --text-color: #333;
@@ -35,9 +40,8 @@
   .c-border-gray {
     @apply border-gray-200 dark:border-gray-600;
   }
-}
 
-@theme {
-  --color-c-main-blue: #62a4f5;
-  --spacing-c-header-height: 4rem;
+  .c-btn-gray {
+    @apply border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-50/10;
+  }
 }
