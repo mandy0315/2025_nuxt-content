@@ -22,9 +22,8 @@ const { data: categorys } = await useAsyncData(route.path, async () => {
       </template>
     </UPageTitle>
 
-    <div class="max-w-200 mx-auto">
-      <button class="px-1 cursor-pointer" v-for="category in categorys" :key="category"
-        @click="goToCategoryPage(category)">
+    <div class="flex flex-wrap justify-center gap-2">
+      <button class="cursor-pointer" v-for="category in categorys" :key="category" @click="goToCategoryPage(category)">
         <UTag class="text-lg rounded-3xl">{{ category }}</UTag>
       </button>
     </div>
