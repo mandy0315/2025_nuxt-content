@@ -4,6 +4,7 @@ import type { ContentNavigationItem } from '@nuxt/content';
 const { currSection,
   setNavListener } = useNavListener();
 const route = useRoute();
+const { goToCategoryPage } = useCategory();
 
 // 文章
 const { data: post } = await useAsyncData('post', () => {
@@ -113,13 +114,24 @@ onMounted(() => {
           </div>
         </nav>
 
-        <UDate :date="post.date" />
-        <h1 class="text-3xl">{{ post.title }}</h1>
+
+        <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
+        <div class="pb-2 grid grid-cols-2 gap-x-2">
+          <div class="col-span-1">
+            <UDate class="align-middle inline-block" :date="post.date" />
+          </div>
+          <div class="col-span-1 text-right">
+            <button class="pr-1 cursor-pointer" v-for="category in post.categorys" :key="category"
+              @click="goToCategoryPage(category)">
+              <UTag class="text-sm">{{ category }}</UTag>
+            </button>
+          </div>
+        </div>
         <p>{{ post.description }}</p>
       </div>
 
       <!-- 文章內容 -->
-      <article class="prose prose-primary dark:prose-invert">
+      <article class="prose prose-primary max-w-full dark:prose-invert">
         <ContentRenderer :value="post" />
       </article>
 
