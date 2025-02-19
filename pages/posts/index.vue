@@ -10,7 +10,7 @@ const { data: posts } = await useAsyncData(route.path, () => {
       文章
       <template #directions>
         目前有
-        <span class="text-c-main-blue font-medium">{{ posts?.length || 0 }}</span>
+        <span class="text-c-main-blue font-medium">"{{ posts?.length || 0 }}"</span>
         篇文章，紀錄著我生活大小事，歡迎閱讀！
       </template>
     </UPageTitle>

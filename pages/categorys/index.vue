@@ -17,8 +17,8 @@ const { data: categorys } = await useAsyncData(route.path, async () => {
       文章分類
       <template #directions>
         目前有
-        <span class="text-c-main-blue font-medium">{{ categorys?.length || 0 }}</span>
-        種類別，歡迎點選進入分類列表！
+        <span class="text-c-main-blue font-medium">"{{ categorys?.length || 0 }}"</span>
+        個標籤，歡迎點選進入分類列表！
       </template>
     </UPageTitle>
 
