@@ -18,7 +18,7 @@ defineProps<{
     <UDate :date class="p-2" />
 
     <NuxtLink class="pb-2 px-2 block" :to="path">
-      <p class="text-2xl"> {{ title }}</p>
+      <p class="text-xl"> {{ title }}</p>
       <p>{{ description }}</p>
     </NuxtLink>
   </div>
