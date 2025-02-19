@@ -4,7 +4,7 @@
 <template>
   <div class="grid grid-cols-10 gap-x-4">
     <div class="col-span-8 pb-10">
-      <slot />
+      <slot name="content" />
     </div>
     <div class="col-span-2">
       <!-- 右側目錄 -->
