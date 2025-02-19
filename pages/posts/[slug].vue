@@ -100,52 +100,53 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="post" class="grid grid-cols-10 gap-x-8 ">
-    <div class="col-span-8 pb-10">
-      <div class="border-b pb-6 pt-4 c-border-gray">
-        <!-- 麵包屑 -->
-        <nav v-if="breadcrumbs" class="c-text-gray">
-          <div class="inline-block" v-for="item in breadcrumbs" :key="item.path">
-            <component :is="item.title === post.title ? 'span' : 'button'"
-              :class="item.title === post.title ? 'cursor-default' : 'hover:text-blue-400'"
-              @click="$router.push(item.path)" :disabled="item.title === post.title">
-              {{ item.title }}
-            </component>
-          </div>
-        </nav>
+  <NuxtLayout name="content-with-sidebar">
+    <template #content>
+      <div v-if="post">
+        <div class="border-b pb-6 pt-4 c-border-gray">
+          <!-- 麵包屑 -->
+          <nav v-if="breadcrumbs" class="c-text-gray">
+            <div class="inline-block" v-for="item in breadcrumbs" :key="item.path">
+              <component :is="item.title === post.title ? 'span' : 'button'"
+                :class="item.title === post.title ? 'cursor-default' : 'hover:text-blue-400'"
+                @click="$router.push(item.path)" :disabled="item.title === post.title">
+                {{ item.title }}
+              </component>
+            </div>
+          </nav>
 
 
-        <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
-        <div class="pb-2 grid grid-cols-2 gap-x-2">
-          <div class="col-span-1">
-            <UDate class="align-middle inline-block" :date="post.date" />
+          <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
+          <div class="pb-2 grid grid-cols-2 gap-x-2">
+            <div class="col-span-1">
+              <UDate class="align-middle inline-block" :date="post.date" />
+            </div>
+            <div class="col-span-1 text-right">
+              <button class="pr-1 cursor-pointer" v-for="category in post.categorys" :key="category"
+                @click="goToCategoryPage(category)">
+                <UTag class="text-sm">{{ category }}</UTag>
+              </button>
+            </div>
           </div>
-          <div class="col-span-1 text-right">
-            <button class="pr-1 cursor-pointer" v-for="category in post.categorys" :key="category"
-              @click="goToCategoryPage(category)">
-              <UTag class="text-sm">{{ category }}</UTag>
-            </button>
-          </div>
+          <p>{{ post.description }}</p>
         </div>
-        <p>{{ post.description }}</p>
+
+        <!-- 文章內容 -->
+        <article class="prose prose-primary max-w-full dark:prose-invert">
+          <ContentRenderer :value="post" />
+        </article>
+
+        <!-- 上下篇文章 -->
+        <ul class="grid grid-cols-2 gap-x-4">
+          <li class="col-span-1 w-full block " v-for="(surround, idx) in surroundings" :key="idx">
+            <USurroundCard :path="surround?.path ? surround.path : '/posts'" :title="surround?.title" :idx />
+          </li>
+        </ul>
       </div>
-
-      <!-- 文章內容 -->
-      <article class="prose prose-primary max-w-full dark:prose-invert">
-        <ContentRenderer :value="post" />
-      </article>
-
-      <!-- 上下篇文章 -->
-      <ul class="grid grid-cols-2 gap-x-4">
-        <li class="col-span-1 w-full block " v-for="(surround, idx) in surroundings" :key="idx">
-          <USurroundCard :path="surround?.path ? surround.path : '/posts'" :title="surround?.title" :idx />
-        </li>
-      </ul>
-    </div>
-    <div class="col-span-2">
-      <!-- 右側目錄 -->
-      <aside class="sticky top-c-header-height pt-10 pl-4">
-        <p class="font-medium pb-2">目錄</p>
+    </template>
+    <template #right-side>
+      <div class="pt-10">
+        <p class="font-medium pb-2 text-lg">目錄</p>
         <ul class="c-text-gray">
           <li v-for="section in sectionsInfo">
             <div class=" hover:text-blue-400 cursor-pointer"
@@ -154,9 +155,9 @@ onMounted(() => {
                 section.title }}</div>
           </li>
         </ul>
-      </aside>
-    </div>
-  </div>
+      </div>
+    </template>
+  </NuxtLayout>
 </template>
 
 <style lang="scss" scoped>
