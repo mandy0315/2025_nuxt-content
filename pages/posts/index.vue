@@ -1,14 +1,18 @@
 <script setup lang="ts">
 const route = useRoute();
+const { getCategories, goToCategoryPage } = useCategory();
+
 const { data: posts } = await useAsyncData(route.path, () => {
   return queryCollection('posts').order('date', 'DESC').select('title', 'path', 'categorys', 'image', 'description', 'date').all()
 })
+
+const categorys = await getCategories(10);
 </script>
 <template>
   <NuxtLayout name="content-with-sidebar">
     <template #content>
       <UPageTitle>
-        文章
+        所有文章
         <template #directions>
           目前有
           <span class="text-c-main-blue font-medium">"{{ posts?.length || 0 }}"</span>
@@ -21,7 +25,14 @@ const { data: posts } = await useAsyncData(route.path, () => {
       </div>
     </template>
     <template #right-side>
-      分類標籤
+      <URightSideTitle>分類</URightSideTitle>
+      <div class="flex flex-wrap gap-2">
+        <button class="cursor-pointer" v-for="category in categorys" :key="category"
+          @click="goToCategoryPage(category)">
+          <UTag>{{ category }}</UTag>
+        </button>
+      </div>
+      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categorys">更多分類</NuxtLink>
     </template>
   </NuxtLayout>
 </template>
