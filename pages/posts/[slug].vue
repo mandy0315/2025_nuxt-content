@@ -11,38 +11,6 @@ const { data: post } = await useAsyncData('post', () => {
   return queryCollection('posts').path(route.path).first();
 })
 
-// 麵包屑-內頁
-const breadcrumbs = ref<Array<{
-  title: string;
-  path: string;
-}>>([]);
-// -遞迴函式：從 JSON 解析出路徑
-const extractBreadcrumbs = (data: ContentNavigationItem) => {
-  breadcrumbs.value.push({
-    title: data.title, path: data.path
-  });
-  if (data.children && data.children.length) {
-    return extractBreadcrumbs(data.children[0]);
-  }
-  return;
-};
-const setBreadcrumbs = watch(post, async () => {
-  if (post.value) {
-    const { data: navs } = await useAsyncData('navigation', () => {
-      return queryCollectionNavigation('posts').where('title', '=', post.value?.title)
-    })
-    if (navs.value) {
-      extractBreadcrumbs(navs.value[0]);
-    }
-  }
-}, {
-  immediate: true,
-  deep: true
-})
-onMounted(() => {
-  setBreadcrumbs();
-});
-
 // 上下篇文章
 const { data: surroundings } = await useAsyncData('surround', () => {
   return queryCollectionItemSurroundings('posts', route.path)
@@ -105,14 +73,10 @@ onMounted(() => {
       <div v-if="post">
         <div class="border-b pb-6 pt-4 c-border-gray">
           <!-- 麵包屑 -->
-          <nav v-if="breadcrumbs" class="c-text-gray">
-            <div class="inline-block" v-for="item in breadcrumbs" :key="item.path">
-              <component :is="item.title === post.title ? 'span' : 'button'"
-                :class="item.title === post.title ? 'cursor-default' : 'hover:text-blue-400'"
-                @click="$router.push(item.path)" :disabled="item.title === post.title">
-                {{ item.title }}
-              </component>
-            </div>
+          <nav class="c-text-gray">
+            <NuxtLink to="/posts" class="hover:text-blue-400">文章列表</NuxtLink>
+            <span class="px-2">></span>
+            <span class="text-c-main-blue cursor-default">{{ post.title }}</span>
           </nav>
 
 
@@ -157,16 +121,3 @@ onMounted(() => {
     </template>
   </NuxtLayout>
 </template>
-
-<style lang="scss" scoped>
-nav {
-  div::after {
-    content: '>';
-    margin: 0 0.5rem;
-  }
-
-  div:last-child::after {
-    content: '';
-  }
-}
-</style>
