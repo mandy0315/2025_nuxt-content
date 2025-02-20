@@ -12,7 +12,7 @@ const categorys = await getCategories(10);
   <NuxtLayout name="content-with-sidebar">
     <template #content>
       <UPageTitle>
-        所有文章
+        文章
         <template #directions>
           目前有
           <span class="text-c-main-blue font-medium">"{{ posts?.length || 0 }}"</span>
