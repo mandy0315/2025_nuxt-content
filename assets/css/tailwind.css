@@ -15,13 +15,13 @@
 
 @layer base {
   :root {
-    --text-color: #333;
+    --text-color: #111827;
     --bg-color: #fff;
   }
 
   .dark {
     --text-color: #fff;
-    --bg-color: #333;
+    --bg-color: #111827;
   }
 
   body,
@@ -42,7 +42,11 @@
     @apply border-gray-200 dark:border-gray-600;
   }
 
-  .c-btn-gray {
-    @apply border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-50/10;
+  .c-border-btn {
+    @apply bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-50/20;
+  }
+
+  .c-text-link {
+    @apply underline underline-offset-4 hover:text-[#62a4f5];
   }
 }

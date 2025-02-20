@@ -9,7 +9,7 @@ withDefaults(defineProps<{
 
 </script>
 <template>
-  <NuxtLink :to="path" class="flex justify-between p-4 h-20 rounded c-btn-gray"
+  <NuxtLink :to="path" class="flex justify-between p-4 h-20 rounded c-border-btn"
     :class="idx === 0 ? 'flex-row-reverse' : ''">
     <div :class="{ 'text-right': idx === 0 }">
       <p v-if="idx === 0" class="c-text-gray text-sm">上一篇</p>
