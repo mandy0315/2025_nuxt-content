@@ -145,17 +145,15 @@ onMounted(() => {
       </div>
     </template>
     <template #right-side>
-      <div class="pt-10">
-        <p class="font-medium pb-2 text-lg">目錄</p>
-        <ul class="c-text-gray">
-          <li v-for="section in sectionsInfo">
-            <div class=" hover:text-blue-400 cursor-pointer"
-              :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-              @click="handleScrollToSection(section)">{{
-                section.title }}</div>
-          </li>
-        </ul>
-      </div>
+      <URightSideTitle>目錄</URightSideTitle>
+      <ul class="c-text-gray">
+        <li v-for="section in sectionsInfo">
+          <div class=" hover:text-blue-400 cursor-pointer"
+            :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
+            @click="handleScrollToSection(section)">{{
+              section.title }}</div>
+        </li>
+      </ul>
     </template>
   </NuxtLayout>
 </template>
