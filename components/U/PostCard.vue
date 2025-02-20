@@ -11,7 +11,8 @@ defineProps<{
   <div class="bg-gray-100 dark:bg-gray-100/10 border c-border-gray shadow-lg rounded overflow-hidden">
     <NuxtLink :to="path">
       <div class="w-full h-0 pb-[56.25%] relative">
-        <img class="h-full object-center object-cover w-full absolute" :src="image" />
+        <BaseImage :src="image" fallback="/images/default-image.jpg" :alt="title"
+          imgClass="h-full object-center object-cover w-full absolute" />
       </div>
     </NuxtLink>
 
