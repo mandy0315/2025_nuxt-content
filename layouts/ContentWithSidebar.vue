@@ -19,9 +19,12 @@ onMounted(() => {
     <div class="pb-10 relative w-full">
       <button class="sticky top-c-header-height left-full pt-2" @click="toggleSidebar">
         <div class="rounded-l c-border-btn border-r-transparent">
-          <Icon v-if="isShowSidebar" name="solar:double-alt-arrow-left-line-duotone" size="1.5rem"
+          <Icon v-if="isShowSidebar" name="solar:double-alt-arrow-right-line-duotone" size="1.5rem"
             class="align-middle" />
-          <Icon v-else name="solar:double-alt-arrow-right-line-duotone" size="1.5rem" class="align-middle" />
+          <span v-else>
+            <Icon name="solar:double-alt-arrow-left-line-duotone" size="1.5rem" class="align-middle" />
+            <span class="align-middle pr-1 text-xs">側邊欄</span>
+          </span>
         </div>
       </button>
       <div class="pr-4">
