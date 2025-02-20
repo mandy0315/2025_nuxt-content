@@ -8,19 +8,18 @@ defineProps<{
 }>()
 </script>
 <template>
-  <div class="bg-gray-100 dark:bg-gray-100/10 border c-border-gray shadow-lg rounded overflow-hidden">
-    <NuxtLink :to="path">
-      <div class="w-full h-0 pb-[56.25%] relative">
-        <BaseImage :src="image" fallback="/images/default-image.jpg" :alt="title"
-          imgClass="h-full object-center object-cover w-full absolute" />
-      </div>
-    </NuxtLink>
+  <NuxtLink :to="path"
+    class="bg-gray-100 dark:bg-gray-100/10 border c-border-gray shadow-lg rounded-lg overflow-hidden group">
 
-    <UDate :date class="p-2" />
+    <div class="w-full h-0 pb-[56.25%] relative rounded-lg overflow-hidden">
+      <BaseImage :src="image" fallback="/images/default-image.jpg" :alt="title"
+        imgClass="h-full transition object-center object-cover w-full absolute duration-500 ease-in-out group-hover:blur-sm group-hover:scale-110" />
+    </div>
+    <div class="p-2">
+      <UDate :date />
 
-    <NuxtLink class="pb-2 px-2 block" :to="path">
       <p class="text-xl"> {{ title }}</p>
       <p>{{ description }}</p>
-    </NuxtLink>
-  </div>
+    </div>
+  </NuxtLink>
 </template>
