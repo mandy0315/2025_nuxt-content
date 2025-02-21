@@ -43,7 +43,7 @@
   }
 
   .c-border-btn {
-    @apply bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-50/20;
+    @apply bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-50/20 disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-100;
   }
 
   .c-text-link {
