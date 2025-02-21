@@ -16,6 +16,6 @@ const { data: posts } = await useAsyncData(route.path, async () => {
 </script>
 <template>
   <div class="grid grid-cols-3 gap-4">
-    <UPostCard v-for="post in posts" v-bind="post" :key="post.title" class="col-span-1" />
+    <BasePostCard v-for="post in posts" v-bind="post" :key="post.title" class="col-span-1" />
   </div>
 </template>

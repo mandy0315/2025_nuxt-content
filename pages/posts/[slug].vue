@@ -83,12 +83,12 @@ onMounted(() => {
           <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
           <div class="pb-2 grid grid-cols-2 gap-x-2">
             <div class="col-span-1">
-              <UDate class="align-middle inline-block" :date="post.date" />
+              <BaseDate class="align-middle inline-block" :date="post.date" />
             </div>
             <div class="col-span-1 text-right">
               <button class="pr-1 cursor-pointer" v-for="category in post.categorys" :key="category"
                 @click="goToCategoryPage(category)">
-                <UTag class="text-sm">{{ category }}</UTag>
+                <BaseTag class="text-sm">{{ category }}</BaseTag>
               </button>
             </div>
           </div>
@@ -103,13 +103,13 @@ onMounted(() => {
         <!-- 上下篇文章 -->
         <ul class="grid grid-cols-2 gap-x-4">
           <li class="col-span-1 w-full block " v-for="(surround, idx) in surroundings" :key="idx">
-            <USurroundCard :path="surround?.path ? surround.path : '/posts'" :title="surround?.title" :idx />
+            <BaseSurroundCard :path="surround?.path ? surround.path : '/posts'" :title="surround?.title" :idx />
           </li>
         </ul>
       </div>
     </template>
     <template #right-side>
-      <URightSideTitle>目錄</URightSideTitle>
+      <BaseSidebarTitle>目錄</BaseSidebarTitle>
       <ul class="c-text-gray">
         <li v-for="section in sectionsInfo">
           <div class=" hover:text-blue-400 cursor-pointer"
