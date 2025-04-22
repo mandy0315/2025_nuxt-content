@@ -133,15 +133,17 @@ initRightSide();
       </div>
     </template>
     <template #right-side>
-      <BaseSidebarTitle>目錄</BaseSidebarTitle>
-      <ul v-if="sectionsInfo" class="c-text-gray">
-        <li v-for="section in sectionsInfo">
-          <div class=" hover:text-blue-400 cursor-pointer"
-            :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-            @click="handleScrollToSection(section)">{{
-              section.title }}</div>
-        </li>
-      </ul>
+      <ClientOnly>
+        <BaseSidebarTitle>目錄</BaseSidebarTitle>
+        <ul v-if="sectionsInfo" class="c-text-gray">
+          <li v-for="section in sectionsInfo">
+            <div class=" hover:text-blue-400 cursor-pointer"
+              :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
+              @click="handleScrollToSection(section)">{{
+                section.title }}</div>
+          </li>
+        </ul>
+      </ClientOnly>
     </template>
   </NuxtLayout>
 </template>
