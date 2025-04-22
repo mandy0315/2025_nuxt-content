@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { ContentNavigationItem } from '@nuxt/content';
 
 const { currSection,
   setNavListener } = useNavListener();
@@ -22,16 +21,7 @@ type Section = {
   element: HTMLElement | null;
   level: number;
 }
-const { data: sections } = await useAsyncData('sections', async () => {
-  const sections = await queryCollectionSearchSections('posts', {
-    ignoredTags: ['code', 'p']
-  })
-  const filteredSections = sections.filter(section =>
-    section.id.startsWith(route.path)
-  )
-  return filteredSections
-})
-const sectionsInfo = ref<Array<Section>>([]);
+const sectionsInfo = ref<Section[] | null>(null);
 const handleScrollToSection = (section: Section) => {
   const FIXED_HEADER_HEIGHT = 64;
 
@@ -45,7 +35,16 @@ const handleScrollToSection = (section: Section) => {
     });
   }
 }
-onMounted(() => {
+const setSectionsInfo = async () => {
+  const { data: sections } = await useAsyncData('sections', async () => {
+    const sections = await queryCollectionSearchSections('posts', {
+      ignoredTags: ['code', 'p']
+    })
+    const filteredSections = sections.filter(section =>
+      section.id.startsWith(route.path)
+    )
+    return filteredSections
+  })
   if (sections.value) {
     sectionsInfo.value = sections.value.filter((section) => section.level >= 2).map((section) => {
       return {
@@ -54,17 +53,22 @@ onMounted(() => {
         level: section.level
       }
     });
-
-    setNavListener({
-      navs: sectionsInfo.value.map(section => {
-        return {
-          title: section.title,
-          element: section.element
-        }
-      }),
-    });
   }
-})
+}
+const initRightSide = async () => {
+  await setSectionsInfo();
+  if (!sectionsInfo.value) return;
+  setNavListener({
+    navs: sectionsInfo.value.map(section => {
+      return {
+        title: section.title,
+        element: section.element
+      }
+    }),
+  });
+}
+
+initRightSide();
 </script>
 
 <template>
@@ -103,14 +107,14 @@ onMounted(() => {
         <!-- 上下篇文章 -->
         <ul class="grid grid-cols-2 gap-x-4">
           <li class="col-span-1 w-full block " v-for="(surround, idx) in surroundings" :key="idx">
-            <BaseSurroundCard :path="surround?.path ? surround.path : '/posts'" :title="surround?.title" :idx />
+            <BaseSurroundCard :path="surround?.path ? surround.path : null" :title="surround?.title" :idx />
           </li>
         </ul>
       </div>
     </template>
     <template #right-side>
       <BaseSidebarTitle>目錄</BaseSidebarTitle>
-      <ul class="c-text-gray">
+      <ul v-if="sectionsInfo" class="c-text-gray">
         <li v-for="section in sectionsInfo">
           <div class=" hover:text-blue-400 cursor-pointer"
             :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
