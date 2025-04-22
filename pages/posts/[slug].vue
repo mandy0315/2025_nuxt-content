@@ -11,9 +11,28 @@ const { data: post } = await useAsyncData('post', () => {
 })
 
 // 上下篇文章
-const { data: surroundings } = await useAsyncData('surround', () => {
-  return queryCollectionItemSurroundings('posts', route.path)
-})
+const { data: prevPost } = await useAsyncData('prevPost', async () => {
+  const posts = await queryCollection('posts').select("title", "path", "description").all();
+  if (posts.length <= 1) return null;
+  const index = posts.findIndex((post) => post.path === route.path);
+  if (index === -1) return null;
+  // 如果有上一篇文章，返回上一篇，如果沒有，循環到最後一篇
+  if (index > 0) {
+    return posts[index - 1];
+  }
+  return posts[posts.length - 1];
+});
+const { data: nextPost } = await useAsyncData('nextPost', async () => {
+  const posts = await queryCollection('posts').select("title", "path", "description").all();
+  if (posts.length <= 1) return null;
+  const index = posts.findIndex((post) => post.path === route.path);
+  if (index === -1) return null;
+  if (index < posts.length - 1) {
+    return posts[index + 1];
+  }
+  // 如果沒有下一篇文章，循環到第一篇
+  return posts[0];
+});
 
 // 右側目錄
 type Section = {
@@ -105,11 +124,12 @@ initRightSide();
         </article>
 
         <!-- 上下篇文章 -->
-        <ul class="grid grid-cols-2 gap-x-4">
-          <li class="col-span-1 w-full block " v-for="(surround, idx) in surroundings" :key="idx">
-            <BaseSurroundCard :path="surround?.path ? surround.path : null" :title="surround?.title" :idx />
-          </li>
-        </ul>
+        <div class="grid grid-cols-2 gap-x-4">
+          <BaseSurroundCard v-if="prevPost" class="col-span-1" :path="prevPost.path" :title="prevPost.title" :idx="0"
+            :description="prevPost.description" />
+          <BaseSurroundCard v-if="nextPost" class="col-span-1" :path="nextPost.path" :title="nextPost.title" :idx="1"
+            :description="nextPost.description" />
+        </div>
       </div>
     </template>
     <template #right-side>
