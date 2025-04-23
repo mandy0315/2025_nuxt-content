@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 
   icon: {
     serverBundle: {
-      collections: ["solar"],
+      collections: ["solar", "logos"],
     },
   },
 
