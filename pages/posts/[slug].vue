@@ -86,9 +86,12 @@ const initRightSide = async () => {
     }),
   });
 }
-nextTick(() => {
-  initRightSide();
+onMounted(() => {
+  nextTick(() => {
+    initRightSide();
+  });
 })
+
 </script>
 
 <template>
