@@ -39,7 +39,7 @@ type Section = {
   title: string;
   element: HTMLElement | null;
   level: number;
-}
+};
 const sectionsInfo = ref<Section[] | null>(null);
 const handleScrollToSection = (section: Section) => {
   const FIXED_HEADER_HEIGHT = 64;
@@ -52,27 +52,27 @@ const handleScrollToSection = (section: Section) => {
       top: section?.element.offsetTop - FIXED_HEADER_HEIGHT,
       behavior: 'smooth',
     });
-  }
+  };
 }
 const setSectionsInfo = async () => {
   const { data: sections } = await useAsyncData('sections', async () => {
     const sections = await queryCollectionSearchSections('posts', {
-      ignoredTags: ['code', 'p']
-    })
+      ignoredTags: ['code', 'p'],
+    });
     const filteredSections = sections.filter(section =>
       section.id.startsWith(route.path)
-    )
-    return filteredSections
-  })
+    );
+    return filteredSections;
+  });
   if (sections.value) {
     sectionsInfo.value = sections.value.filter((section) => section.level >= 2).map((section) => {
       return {
         title: section.title,
         element: document.getElementById(section.title),
         level: section.level
-      }
+      };
     });
-  }
+  };
 }
 const initRightSide = async () => {
   await setSectionsInfo();
@@ -86,8 +86,9 @@ const initRightSide = async () => {
     }),
   });
 }
-
-initRightSide();
+nextTick(() => {
+  initRightSide();
+})
 </script>
 
 <template>
