@@ -4,8 +4,22 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* @tailwindcss/typography 樣式套件修改 */
-.prose :where(h1 a, h2 a, h3 a, h4 a):not(:where([class~=not-prose], [class~=not-prose] *)) {
-  @apply no-underline;
+.prose {
+  :where(h1 a, h2 a, h3 a, h4 a):not(:where([class~=not-prose], [class~=not-prose] *)) {
+    @apply no-underline;
+  }
+
+  :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply bg-gray-50 dark:bg-black/40 border border-gray-300;
+  }
+
+  :where(thead):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply bg-gray-100 dark:bg-black;
+  }
+
+  :where(th, td):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply p-2;
+  }
 }
 
 @theme {
