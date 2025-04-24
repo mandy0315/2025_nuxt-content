@@ -1,15 +1,20 @@
 <template>
-  <div class="my-6 group">
-    <div class="p-2 bg-gray-200/20 rounded-t border border-gray-300 dark:bg-black/50 flex items-center">
-      <Icon v-if="language && LanguageIconList[language]" :name="LanguageIconList[language]" class="align-middle" />
-      <span class="pl-2">{{ filename }}</span>
+  <div class="my-6 group relative">
+    <button class="hidden cursor-pointer p-2 text-xl ml-auto group-hover:inline-block absolute top-0 right-0"
+      @click="copyToClipboard">
+      <Icon v-if="isCopied" name="solar:clipboard-check-outline" />
+      <Icon v-else name="solar:clipboard-text-outline" />
+    </button>
 
-      <button class="hidden cursor-pointer text-xl ml-auto group-hover:inline-block" @click="copyToClipboard">
-        <Icon v-if="isCopied" name="solar:clipboard-check-outline" />
-        <Icon v-else name="solar:clipboard-text-outline" />
-      </button>
+    <div v-if="language !== 'plaintext'"
+      class="p-2 h-10 bg-gray-200/20 rounded-t border border-gray-300 dark:bg-black/50">
+      <Icon v-if="language && LanguageIconList[language]" :name="LanguageIconList[language]"
+        class="align-middle text-sm" />
+      <span class="pl-2">{{ filename }}</span>
     </div>
-    <pre class="!my-0 border-b border-l border-r border-gray-300 !rounded-t-none " :class="$props.class">
+
+    <pre class="!my-0 border-gray-300 block max-h-96 overflow-auto"
+      :class="[$props.class, language === 'plaintext' ? 'border text-black dark:text-white' : 'border-b border-l border-r !rounded-t-none']">
       <slot />
     </pre>
   </div>
@@ -34,6 +39,7 @@ const props = withDefaults(defineProps<{
 
 type LanguageIconKey = keyof typeof LanguageIconList;
 const LanguageIconList = {
+  plaintext: '',
   javascript: 'logos:javascript',
   typescript: 'logos:typescript-icon',
   html: 'vscode-icons:file-type-html',
