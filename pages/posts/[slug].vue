@@ -64,11 +64,14 @@ const setSectionsInfo = async () => {
     );
     return filteredSections;
   });
+
   if (sections.value) {
     sectionsInfo.value = sections.value.filter((section) => section.level >= 2).map((section) => {
+      // target 是用來做錨點的，這邊是把空格換成 -，並轉成小寫
+      const target = section.title.replace(/\s+/g, '-').toLowerCase();
       return {
         title: section.title,
-        element: document.getElementById(section.title),
+        element: document.getElementById(target),
         level: section.level
       };
     });
@@ -89,8 +92,9 @@ const initRightSide = async () => {
 onMounted(() => {
   nextTick(() => {
     initRightSide();
-  });
+  })
 })
+
 
 </script>
 
@@ -139,12 +143,13 @@ onMounted(() => {
     <template #right-side>
       <ClientOnly>
         <BaseSidebarTitle>目錄</BaseSidebarTitle>
-        <ul v-if="sectionsInfo" class="c-text-gray">
+        <ul class="c-text-gray">
           <li v-for="section in sectionsInfo">
-            <div class=" hover:text-blue-400 cursor-pointer"
+            <div v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
               :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-              @click="handleScrollToSection(section)">{{
-                section.title }}</div>
+              @click="handleScrollToSection(section)">
+              {{ section.title }}
+            </div>
           </li>
         </ul>
       </ClientOnly>
