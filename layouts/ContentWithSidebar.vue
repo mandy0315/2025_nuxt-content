@@ -18,7 +18,7 @@ onMounted(() => {
   <div class="flex">
     <div class="pb-10 relative w-full">
       <button class="sticky top-c-header-height left-full pt-2 z-50" @click="toggleSidebar">
-        <div class="rounded-l c-border-btn border-r-transparent">
+        <div class="rounded c-border-btn">
           <Icon v-if="isShowSidebar" name="solar:double-alt-arrow-right-line-duotone" size="1.5rem"
             class="align-middle" />
           <span v-else>
