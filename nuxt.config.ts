@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  css: ["@/assets/css/tailwind.css"],
+  css: ["@/styles/tailwind/main.css"],
 
   icon: {
     serverBundle: {

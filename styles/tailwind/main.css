@@ -1,26 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* colorMode 黑暗模式可以使用 dark:[style] */
 @custom-variant dark (&:where(.dark, .dark *));
-
-/* @tailwindcss/typography 樣式套件修改 */
-.prose {
-  :where(h1 a, h2 a, h3 a, h4 a):not(:where([class~=not-prose], [class~=not-prose] *)) {
-    @apply no-underline;
-  }
-
-  :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    @apply bg-gray-50 dark:bg-black/40 border border-gray-300;
-  }
-
-  :where(thead):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    @apply bg-gray-100 dark:bg-black;
-  }
-
-  :where(th, td):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    @apply p-2;
-  }
-}
 
 @theme {
   --color-c-main-blue: #62a4f5;
@@ -38,9 +20,9 @@
     --bg-color: #111827;
   }
 
-  body,
-  html {
-    @apply transition-colors duration-300;
+  html,
+  body {
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
     color: var(--text-color);
     background-color: var(--bg-color);
     scroll-behavior: smooth;
@@ -64,3 +46,5 @@
     @apply underline underline-offset-4 hover:text-[#62a4f5];
   }
 }
+
+@import "./typography.css";

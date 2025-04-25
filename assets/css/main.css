@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-c-main-blue: #62a4f5;
+  --spacing-c-header-height: 4rem;
+}
+
+/* 自定義基礎樣式 */
+@layer base {
+  :root {
+    --text-color: #111827;
+    --bg-color: #fff;
+  }
+
+  .dark {
+    --text-color: #fff;
+    --bg-color: #111827;
+  }
+
+  body,
+  html {
+    @apply transition-colors duration-300;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    scroll-behavior: smooth;
+  }
+}
+
+/* 自定義元件 */
+@layer components {
+  .c-text-gray {
+    @apply text-gray-500 dark:text-gray-300;
+  }
+
+  .c-border-gray {
+    @apply border-gray-200 dark:border-gray-600;
+  }
+
+  .c-border-btn {
+    @apply bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-50/20 disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-100;
+  }
+
+  .c-text-link {
+    @apply underline underline-offset-4 hover:text-[#62a4f5];
+  }
+}

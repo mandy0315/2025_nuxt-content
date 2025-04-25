@@ -3,15 +3,3 @@
     <slot />
   </code>
 </template>
-
-<style lang="scss">
-.prose {
-  :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
-    content: none;
-  }
-
-  :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
-    content: none;
-  }
-}
-</style>

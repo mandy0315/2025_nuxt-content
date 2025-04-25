@@ -65,21 +65,3 @@ const copyToClipboard = async () => {
   }
 };
 </script>
-
-<style lang="scss">
-pre code .line {
-  display: block;
-}
-
-.prose {
-  :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    background-color: rgba(229, 231, 235, 20%) !important;
-  }
-}
-
-.dark .prose {
-  :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    background-color: rgba(0, 0, 0, 50%) !important;
-  }
-}
-</style>

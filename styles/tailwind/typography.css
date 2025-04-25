@@ -1,0 +1,47 @@
+/* @tailwindcss/typography 樣式套件修改 */
+
+/* title */
+.prose :where(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply !no-underline;
+}
+
+.prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply scroll-mt-16 -ml-6;
+}
+
+.prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
+  @apply content-['#'] opacity-0 transition-opacity duration-300 text-blue-500 pr-2 inline-block;
+}
+
+.prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover::before {
+  @apply opacity-100;
+}
+
+/* table */
+.prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply bg-gray-50 dark:bg-black/40 border border-gray-300;
+}
+
+.prose :where(thead):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply bg-gray-100 dark:bg-black;
+}
+
+.prose :where(th, td):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply p-2;
+}
+
+/* pre */
+.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply bg-gray-50 dark:bg-black/40;
+}
+
+.prose :where(pre code .line):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply block;
+
+}
+
+/* code */
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply before:content-none after:content-none;
+
+}
