@@ -41,24 +41,26 @@ const visibleCount = computed(() => {
 
 </script>
 <template>
-  <div>
-    <button @click="goToPage(1)" class="c-border-btn w-8 h-8 rounded mx-0.5" :disabled="currentPage === 1">
-      <Icon name="solar:double-alt-arrow-left-linear" size="1.3rem" class="align-middle" />
-    </button>
-    <button @click="changePage(-1)" class="c-border-btn w-8 h-8 rounded mx-0.5" :disabled="currentPage === 1">
-      <Icon name="solar:alt-arrow-left-outline" size="1.2rem" class="align-middle" />
-    </button>
+  <div class="flex items-center justify-center py-6">
+    <BaseButton @click="goToPage(1)" class="w-8 h-8 mx-0.5 inline-flex items-center" :disabled="currentPage === 1">
+      <Icon name="solar:double-alt-arrow-left-linear" size="1.3rem" />
+    </BaseButton>
+    <BaseButton @click="changePage(-1)" class="w-8 h-8 mx-0.5 inline-flex items-center" :disabled="currentPage === 1">
+      <Icon name="solar:alt-arrow-left-outline" size="1.2rem" />
+    </BaseButton>
 
-    <button class="c-border-btn w-8 h-8 rounded mx-0.5" v-for="num in visibleCount"
-      :class="{ 'bg-c-main-blue text-white': currentPage === num }" :key="num" @click="goToPage(num)">{{ num }}</button>
+    <BaseButton class="w-8 h-8 mx-0.5" v-for="num in visibleCount"
+      :class="currentPage === num ? 'bg-c-light-blue text-white' : ''" :key="num" @click="goToPage(num)">
+      {{ num }}
+    </BaseButton>
 
-    <button @click="changePage(1)" class="c-border-btn w-8 h-8 rounded mx-0.5" :disabled="currentPage === totalPage">
-      <Icon name="solar:alt-arrow-right-outline" size="1.2rem" class="align-middle" />
-    </button>
-    <button @click="goToPage(totalPage)" class="c-border-btn w-8 h-8 rounded mx-0.5"
+    <BaseButton @click="changePage(1)" class="w-8 h-8 mx-0.5 inline-flex items-center"
       :disabled="currentPage === totalPage">
-      <Icon name="solar:double-alt-arrow-right-linear" size="1.3rem" class="align-middle" />
-    </button>
-
+      <Icon name="solar:alt-arrow-right-outline" size="1.2rem" />
+    </BaseButton>
+    <BaseButton @click="goToPage(totalPage)" class="w-8 h-8 mx-0.5 inline-flex items-center"
+      :disabled="currentPage === totalPage">
+      <Icon name="solar:double-alt-arrow-right-linear" size="1.3rem" />
+    </BaseButton>
   </div>
 </template>

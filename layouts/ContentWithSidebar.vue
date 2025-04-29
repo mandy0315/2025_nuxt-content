@@ -17,16 +17,14 @@ onMounted(() => {
 <template>
   <div class="flex">
     <div class="pb-10 relative w-full">
-      <button class="sticky top-c-header-height left-full pt-2 z-50" @click="toggleSidebar">
-        <div class="rounded c-border-btn">
-          <Icon v-if="isShowSidebar" name="solar:double-alt-arrow-right-line-duotone" size="1.5rem"
-            class="align-middle" />
-          <span v-else>
-            <Icon name="solar:double-alt-arrow-left-line-duotone" size="1.5rem" class="align-middle" />
-            <span class="align-middle pr-1 text-xs">側邊欄</span>
-          </span>
-        </div>
-      </button>
+      <BaseButton class="sticky top-c-header-height left-full z-50" @click="toggleSidebar">
+        <Icon v-if="isShowSidebar" name="solar:double-alt-arrow-right-line-duotone" size="1.5rem"
+          class="align-middle" />
+        <span v-else>
+          <Icon name="solar:double-alt-arrow-left-line-duotone" size="1.5rem" class="align-middle" />
+          <span class="align-middle pr-1 text-xs">側邊欄</span>
+        </span>
+      </BaseButton>
       <div class="pr-4">
         <slot name="content" />
       </div>
