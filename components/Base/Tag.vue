@@ -1,7 +1,15 @@
 <script setup lang="ts">
+withDefaults(
+  defineProps<{
+    isAction?: boolean;
+  }>(),
+  {
+    isAction: false,
+  }
+);
 </script>
 <template>
-  <div class="px-3 py-1 rounded-2xl c-border-btn hover:text-c-main-blue">
+  <button class="c-rounded-btn rounded-2xl px-3 hover:text-c-light-blue" :class="{ 'text-c-light-blue': isAction }">
     <slot />
-  </div>
+  </button>
 </template>
