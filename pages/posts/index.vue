@@ -21,14 +21,14 @@ watch([currentPage, currentSort], ([page, sort]) => {
           文章
           <template #directions>
             目前有
-            <span class="text-c-main-blue font-medium">"{{ posts.totalList || 0 }}"</span>
+            <span class="text-c-light-blue font-medium">"{{ posts.totalList || 0 }}"</span>
             篇文章，紀錄著我生活大小事，歡迎閱讀！
           </template>
         </BaseListTitle>
 
         <div class="pb-4 ml-auto text-right">
           <p class="c-text-gray inline-block">文章排序：</p>
-          <select v-model="currentSort" class="c-border-btn rounded py-1 px-2">
+          <select v-model="currentSort" class="c-rounded-btn rounded py-1 px-2">
             <option value="desc">新到舊</option>
             <option value="asc">舊到新</option>
           </select>
@@ -45,10 +45,9 @@ watch([currentPage, currentSort], ([page, sort]) => {
     <template #right-side>
       <BaseSidebarTitle>分類</BaseSidebarTitle>
       <div class="flex flex-wrap gap-2">
-        <button class="cursor-pointer" v-for="category in categories" :key="category"
-          @click="goToCategoryPage(category)">
-          <BaseTag>{{ category }}</BaseTag>
-        </button>
+        <BaseTag v-for="category in categories" :key="category" @click="goToCategoryPage(category)">
+          {{ category }}
+        </BaseTag>
       </div>
       <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categorys">更多分類</NuxtLink>
     </template>

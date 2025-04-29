@@ -107,7 +107,7 @@ onMounted(() => {
           <nav class="c-text-gray">
             <NuxtLink to="/posts" class="hover:text-blue-400">文章列表</NuxtLink>
             <span class="px-2">></span>
-            <span class="text-c-main-blue cursor-default">{{ post.title }}</span>
+            <span class="text-c-light-blue cursor-default">{{ post.title }}</span>
           </nav>
 
 
@@ -117,10 +117,10 @@ onMounted(() => {
               <BaseDate class="align-middle inline-block" :date="post.date" />
             </div>
             <div class="col-span-1 text-right">
-              <button class="pr-1 cursor-pointer" v-for="category in post.categorys" :key="category"
+              <BaseTag class="mx-1 text-sm" v-for="category in post.categorys" :key="category"
                 @click="goToCategoryPage(category)">
-                <BaseTag class="text-sm">{{ category }}</BaseTag>
-              </button>
+                {{ category }}
+              </BaseTag>
             </div>
           </div>
           <p>{{ post.description }}</p>
