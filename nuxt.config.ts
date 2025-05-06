@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "system",
     fallback: "light",
+    classSuffix: "", // dark mode 掛在 html
   },
 
   compatibilityDate: "2025-02-17",
