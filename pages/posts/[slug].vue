@@ -44,9 +44,6 @@ const sectionsInfo = ref<Section[] | null>(null);
 const handleScrollToSection = (section: Section) => {
   const FIXED_HEADER_HEIGHT = 64;
 
-  // 更新 URL 錨點，但不觸發默認滾動行為
-  history.pushState(null, '', `#${section.title}`);
-
   if (section?.element) {
     window.scrollTo({
       top: section?.element.offsetTop - FIXED_HEADER_HEIGHT,
