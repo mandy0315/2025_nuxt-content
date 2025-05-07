@@ -131,6 +131,9 @@ onMounted(() => {
           <ContentRenderer :value="post" />
         </article>
 
+        <!-- Disqus 留言 -->
+        <BaseDisqus class="py-6" :id="post.id" :title="post.title" />
+
         <!-- 上下篇文章 -->
         <div class="grid grid-cols-2 gap-x-4">
           <BaseSurroundCard v-if="prevPost" class="col-span-1" :path="prevPost.path" :title="prevPost.title" :idx="0"
