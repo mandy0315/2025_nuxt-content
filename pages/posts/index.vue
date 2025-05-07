@@ -1,11 +1,9 @@
 <script setup lang="ts">
-
-
 const { getCategories, goToCategoryPage } = useCategory();
 const categories = await getCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
-const { updatePosts, posts } = usePost();
+const { updatePosts, posts, isLoading } = usePost();
 updatePosts(currentPage.value, currentSort.value);
 
 watch([currentPage, currentSort], ([page, sort]) => {
@@ -16,12 +14,13 @@ watch([currentPage, currentSort], ([page, sort]) => {
 <template>
   <NuxtLayout name="content-with-sidebar">
     <template #content>
-      <div v-if="posts">
+      <div v-if="isLoading">loading....</div>
+      <div v-else>
         <BaseListTitle>
           文章
           <template #directions>
             目前有
-            <span class="text-c-light-blue font-medium">"{{ posts.totalList || 0 }}"</span>
+            <span class="text-c-light-blue font-medium">"{{ posts.totalPosts || 0 }}"</span>
             篇文章，紀錄著我生活大小事，歡迎閱讀！
           </template>
         </BaseListTitle>
@@ -38,7 +37,7 @@ watch([currentPage, currentSort], ([page, sort]) => {
           <BasePostCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
         </div>
 
-        <BasePagination v-model:current-page="currentPage" :totalPage="posts.totalPage" />
+        <BasePagination v-if="posts.totalPage" v-model:current-page="currentPage" :totalPage="posts.totalPage" />
 
       </div>
     </template>
