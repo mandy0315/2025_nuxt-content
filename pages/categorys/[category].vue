@@ -1,21 +1,19 @@
 <script setup lang="ts">
 const route = useRoute();
+const { updatePostsInCategory, posts } = usePost();
+const currentPage = ref(1);
+const currentCategory = computed(() => route.params.category as string);
 
-// 分類文章列表
-const { data: posts } = await useAsyncData(route.path, async () => {
-  const category = decodeURIComponent(`${route.params.category}`);
-
-  const allPost = await queryCollection('posts')
-    .order('date', 'DESC')
-    .select('title', 'path', 'categorys', 'image', 'description', 'date')
-    .all();
-
-  return allPost.filter(post => post.categorys.includes(category)) || [];
-})
-
+updatePostsInCategory(currentPage.value, currentCategory.value);
 </script>
 <template>
-  <div class="grid grid-cols-3 gap-4">
-    <BasePostCard v-for="post in posts" v-bind="post" :key="post.title" class="col-span-1" />
-  </div>
+  <ClientOnly>
+    <div>
+      <div class="grid grid-cols-3 gap-4">
+        <BasePostCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
+      </div>
+
+      <BasePagination v-if="posts.totalPage" v-model:current-page="currentPage" :totalPage="posts.totalPage" />
+    </div>
+  </ClientOnly>
 </template>
