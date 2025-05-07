@@ -1,8 +1,5 @@
-<script setup lang="ts">
-
-</script>
 <template>
-  <div class="pt-6 pb-10">
+  <div class="py-4">
     <h1 class="text-4xl text-center font-bold pb-4">
       <slot />
     </h1>
