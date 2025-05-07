@@ -1,8 +1,17 @@
 <script setup lang="ts">
 const route = useRoute();
+const router = useRouter();
 const { goToCategoryPage, getCategories } = useCategory();
 
 const categorys = await getCategories();
+const hasCategorys = computed(() => categorys.value && categorys.value.length > 0);
+const currentCategory = computed(() => {
+  const category = route.params.category;
+  return category ? category : null;
+});
+if (hasCategorys.value && currentCategory.value === null) {
+  categorys.value && router.push('/categorys/' + categorys.value[0]);
+}
 </script>
 <template>
   <div>
