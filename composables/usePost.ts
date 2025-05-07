@@ -1,76 +1,113 @@
+interface Post {
+  title: string;
+  path: string;
+  categorys: string[];
+  image: string;
+  description: string;
+  date: string;
+}
+
+type SortOrder = "ASC" | "DESC";
 export const usePost = () => {
-  interface Post {
-    title: string;
-    path: string;
-    categorys: string[];
-    image: string;
-    description: string;
-    date: string;
-  }
+  const limitCount = 9;
+  const isLoading = useState<boolean>("loading", () => false);
   const posts = useState<{
     list: Post[];
-    totalList: number;
-    currentPage: number;
-    totalPage: number;
+    totalPosts: number;
+    currentPage?: number;
+    totalPage?: number;
   }>("posts", () => {
     return {
       list: [],
-      totalList: 0,
-      currentPage: 0,
-      totalPage: 0,
+      totalPosts: 0,
     };
   });
 
-  const updatePosts = async (currentPage = 1, currentSort = "desc") => {
-    // 排序
-
-    if (!["desc", "asc"].includes(currentSort)) {
+  const validateAndFormatSortOrder = (sort: string) => {
+    if (["desc", "asc"].includes(sort)) {
+      return sort.toUpperCase() as SortOrder;
+    } else {
       showError({
         statusCode: 404,
         statusMessage: "Page Not Found",
       });
     }
-    //-轉大寫;
-    const sortToUpperCase = currentSort.toUpperCase() as "ASC" | "DESC";
+  };
 
-    const { data: postList } = await useAsyncData("posts", () => {
+  const setPosts = async (sort: SortOrder = "DESC") => {
+    const { data } = await useAsyncData("posts", () => {
       return queryCollection("posts")
-        .order("date", sortToUpperCase)
+        .order("date", sort)
         .select("title", "path", "categorys", "image", "description", "date")
         .all();
     });
 
+    if (data.value && data.value.length > 0) {
+      posts.value.list = data.value;
+      posts.value.totalPosts = data.value?.length;
+    }
+  };
+
+  const filteredPostsInCategory = (category: string) => {
+    const list = posts.value.list;
+    if (list.length === 0) return;
+
+    const postsInCategory = posts.value.list.filter((post) =>
+      post.categorys.includes(category)
+    );
+
+    if (postsInCategory && postsInCategory.length > 0) {
+      posts.value.list = postsInCategory;
+      posts.value.totalPosts = postsInCategory.length;
+    }
+  };
+
+  const setPaginatePosts = (limitCount = 1, currentPage = 1) => {
+    const list = posts.value.list;
+    if (list.length === 0) return;
+
     // 一頁限有幾筆文章
-    const LimitItemsInPage = 2;
-    const totalPage = postList.value?.length
-      ? Math.ceil(postList.value.length / LimitItemsInPage)
-      : 0;
+    const totalPage = Math.ceil(list.length / limitCount);
 
-    // 如果當前頁數大於總頁數，則顯示 404 頁面
-    if (currentPage > totalPage) {
-      showError({
-        statusCode: 404,
-        statusMessage: "Page Not Found",
-      });
-    }
+    // 頁面的文章
+    const postsInPage = list.slice(
+      (currentPage - 1) * limitCount,
+      currentPage * limitCount
+    );
 
-    if (postList.value && postList.value.length > 0) {
-      // 目前頁面的文章列表
-      const currentPagePostList = postList.value?.slice(
-        (currentPage - 1) * LimitItemsInPage,
-        currentPage * LimitItemsInPage
-      );
-      posts.value = {
-        list: currentPagePostList || [],
-        totalList: postList.value.length,
-        currentPage,
-        totalPage,
-      };
-    }
+    posts.value = {
+      list: postsInPage,
+      currentPage,
+      totalPage,
+      totalPosts: list.length,
+    };
+  };
+
+  const updatePosts = async (currentPage = 1, currentSort = "desc") => {
+    isLoading.value = true;
+    const sort = validateAndFormatSortOrder(currentSort);
+
+    await setPosts(sort || "DESC");
+
+    setPaginatePosts(limitCount, currentPage);
+    isLoading.value = false;
+  };
+
+  const updatePostsInCategory = async (
+    currentPage = 1,
+    currentCategory = ""
+  ) => {
+    isLoading.value = true;
+    await setPosts();
+    filteredPostsInCategory(currentCategory);
+    setPaginatePosts(limitCount, currentPage);
+    isLoading.value = false;
   };
 
   return {
     updatePosts,
     posts,
+    isLoading,
+    updatePostsInCategory,
   };
 };
