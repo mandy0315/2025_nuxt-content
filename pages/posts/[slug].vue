@@ -42,30 +42,27 @@ type Section = {
 };
 const sectionsInfo = ref<Section[] | null>(null);
 const handleScrollToSection = (section: Section) => {
-  const FIXED_HEADER_HEIGHT = 64;
-
+  const MARGIN_TOP = 10;
   if (section?.element) {
     window.scrollTo({
-      top: section?.element.offsetTop - FIXED_HEADER_HEIGHT,
+      top: section?.element.offsetTop - MARGIN_TOP,
       behavior: 'smooth',
     });
   };
 }
 const setSectionsInfo = async () => {
   const { data: sections } = await useAsyncData('sections', async () => {
-    const sections = await queryCollectionSearchSections('posts', {
-      ignoredTags: ['code', 'p'],
-    });
-    const filteredSections = sections.filter(section =>
+    const allSectionsInPosts = await queryCollectionSearchSections('posts');
+    const currPosts = allSectionsInPosts.filter(section =>
       section.id.startsWith(route.path)
     );
-    return filteredSections;
+    const thanLevel2Sections = currPosts.filter(section => section.level >= 2);
+    return thanLevel2Sections;
   });
 
   if (sections.value) {
-    sectionsInfo.value = sections.value.filter((section) => section.level >= 2).map((section) => {
-      // target 是用來做錨點的，這邊是把空格換成 -，並轉成小寫
-      const target = section.title.replace(/\s+/g, '-').toLowerCase();
+    sectionsInfo.value = sections.value.map((section) => {
+      const target = section.id.replace('#', '').replace(route.path, '');
       return {
         title: section.title,
         element: document.getElementById(target),
@@ -132,7 +129,7 @@ onMounted(() => {
         <BaseDisqus class="py-6" :id="post.id" :title="post.title" />
 
         <!-- 上下篇文章 -->
-        <div class="grid grid-cols-2 gap-x-4">
+        <div class="grid grid-cols-2 gap-x-4 ">
           <BaseSurroundCard v-if="prevPost" class="col-span-1" :path="prevPost.path" :title="prevPost.title" :idx="0"
             :description="prevPost.description" />
           <BaseSurroundCard v-if="nextPost" class="col-span-1" :path="nextPost.path" :title="nextPost.title" :idx="1"
