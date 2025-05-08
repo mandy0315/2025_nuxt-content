@@ -3,7 +3,7 @@
 const { currSection,
   setNavListener } = useNavListener();
 const route = useRoute();
-const { goToCategoryPage } = useCategory();
+const { goToCategoriesPage } = useCategory();
 
 // 文章
 const { data: post } = await useAsyncData('post', () => {
@@ -111,8 +111,8 @@ onMounted(() => {
               <BaseDate class="align-middle inline-block" :date="post.date" />
             </div>
             <div class="col-span-1 text-right">
-              <BaseTag class="mx-1 text-sm" v-for="category in post.categorys" :key="category"
-                @click="goToCategoryPage(category)">
+              <BaseTag class="mx-1 text-sm" v-for="category in post.categories" :key="category"
+                @click="goToCategoriesPage(category)">
                 {{ category }}
               </BaseTag>
             </div>

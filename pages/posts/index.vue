@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { getCategories, goToCategoryPage } = useCategory();
+const { getCategories, goToCategoriesPage } = useCategory();
 const categories = await getCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
@@ -44,11 +44,11 @@ watch([currentPage, currentSort], ([page, sort]) => {
     <template #right-side>
       <BaseSidebarTitle>分類</BaseSidebarTitle>
       <div class="flex flex-wrap gap-2">
-        <BaseTag v-for="category in categories" :key="category" @click="goToCategoryPage(category)">
+        <BaseTag v-for="category in categories" :key="category" @click="goToCategoriesPage(category)">
           {{ category }}
         </BaseTag>
       </div>
-      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categorys">更多分類</NuxtLink>
+      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categories">更多分類</NuxtLink>
     </template>
   </NuxtLayout>
 </template>
