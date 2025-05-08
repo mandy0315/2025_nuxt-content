@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
-
 const props = defineProps<{
   src: string;
   alt?: string;
