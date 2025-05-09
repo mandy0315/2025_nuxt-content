@@ -35,16 +35,16 @@ export const usePost = () => {
   };
 
   const setPosts = async (sort: SortOrder = "DESC") => {
-    const { data } = await useAsyncData("posts", () => {
-      return queryCollection("posts")
+    try {
+      const data = await queryCollection("posts")
         .order("date", sort)
         .select("title", "path", "categories", "image", "description", "date")
         .all();
-    });
 
-    if (data.value && data.value.length > 0) {
-      posts.value.list = data.value;
-      posts.value.totalPosts = data.value?.length;
+      posts.value.list = data;
+      posts.value.totalPosts = data.length;
+    } catch (error) {
+      console.error("取得文章錯誤", error);
     }
   };
 
