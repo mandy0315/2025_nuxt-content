@@ -4,13 +4,13 @@ const router = useRouter();
 const { goToCategoriesPage, getCategories } = useCategory();
 
 const categories = await getCategories();
-const categoriesCount = computed(() => categories.value?.length || 0);
+const categoriesCount = computed(() => categories.length || 0);
 const currentCategory = computed(() => {
   const category = route.params.category;
   return category ? category : null;
 });
 if (categoriesCount.value > 0 && currentCategory.value === null) {
-  categories.value && router.push('/categories/' + categories.value[0]);
+  categories && router.push('/categories/' + categories[0]);
 }
 </script>
 <template>
