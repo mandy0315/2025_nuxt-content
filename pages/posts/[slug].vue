@@ -51,26 +51,29 @@ const handleScrollToSection = (section: Section) => {
   };
 }
 const setSectionsInfo = async () => {
-  const { data: sections } = await useAsyncData('sections', async () => {
+  try {
     const allSectionsInPosts = await queryCollectionSearchSections('posts');
     const currPosts = allSectionsInPosts.filter(section =>
       section.id.startsWith(route.path)
-    );
+    ) || [];
     const thanLevel2Sections = currPosts.filter(section => section.level >= 2);
-    return thanLevel2Sections;
-  });
 
-  if (sections.value) {
-    sectionsInfo.value = sections.value.map((section) => {
-      const target = section.id.replace('#', '').replace(route.path, '');
-      return {
-        title: section.title,
-        element: document.getElementById(target),
-        level: section.level
-      };
-    });
-  };
-}
+    if (thanLevel2Sections.length > 0) {
+      sectionsInfo.value = thanLevel2Sections.map((section) => {
+        const target = section.id.replace('#', '').replace(route.path, '');
+        return {
+          title: section.title,
+          element: document.getElementById(target),
+          level: section.level
+        };
+      });
+    }
+
+  } catch (error) {
+    console.error('取得文章段落錯誤', error);
+  }
+};
+
 const initRightSide = async () => {
   await setSectionsInfo();
   if (!sectionsInfo.value) return;
@@ -84,12 +87,8 @@ const initRightSide = async () => {
   });
 }
 onMounted(() => {
-  nextTick(() => {
-    initRightSide();
-  })
+  initRightSide();
 })
-
-
 </script>
 
 <template>
@@ -138,18 +137,16 @@ onMounted(() => {
       </div>
     </template>
     <template #right-side>
-      <ClientOnly>
-        <BaseSidebarTitle>目錄</BaseSidebarTitle>
-        <ul class="c-text-gray">
-          <li v-for="section in sectionsInfo">
-            <div v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
-              :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-              @click="handleScrollToSection(section)">
-              {{ section.title }}
-            </div>
-          </li>
-        </ul>
-      </ClientOnly>
+      <BaseSidebarTitle>目錄</BaseSidebarTitle>
+      <ul class="c-text-gray">
+        <li v-for="section in sectionsInfo">
+          <div v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
+            :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
+            @click="handleScrollToSection(section)">
+            {{ section.title }}
+          </div>
+        </li>
+      </ul>
     </template>
   </NuxtLayout>
 </template>
