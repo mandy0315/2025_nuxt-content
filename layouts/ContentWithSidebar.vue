@@ -8,9 +8,7 @@ const toggleSidebar = () => {
   isShowSidebar.value = !isShowSidebar.value;
   cookie.value = String(isShowSidebar.value);
 }
-onMounted(() => {
-  isShowSidebar.value = Boolean(cookie.value);
-});
+isShowSidebar.value = Boolean(cookie.value);
 
 
 </script>
