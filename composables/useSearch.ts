@@ -10,14 +10,16 @@ interface Page {
   path: string;
 }
 
-const useSearch = async () => {
+const useSearch = () => {
+  const isShowSearchModal = useState<boolean>("isShowSearchModal", () => false);
   const { getCategories } = useCategory();
   const posts = useState<Post[]>("searchPosts", () => []);
   const categories = useState<string[]>("searchCategories", () => []);
   const pages = useState<Page[]>("searchPages", () => []);
+  const keywords = useState<string>("keywords", () => "");
 
   // 搜尋文章
-  const searchInCollection = async (
+  const searchInPosts = async (
     collection: Collection,
     keyword: string,
     fields: string[]
@@ -38,7 +40,6 @@ const useSearch = async () => {
       return [];
     }
   };
-
   // 搜尋分類
   const searchInCategories = async (keyword: string) => {
     const categories = await getCategories();
@@ -49,7 +50,6 @@ const useSearch = async () => {
       }) || []
     );
   };
-
   // 搜尋頁面
   const searchInPages = (keyword: string) => {
     const lowerKeyword = keyword.toLowerCase();
@@ -67,20 +67,32 @@ const useSearch = async () => {
     }
     return searchPages;
   };
-
-  const updatedKeywords = async (keywords: string) => {
+  // 設定搜尋列表
+  const setSearchList = async () => {
     const [kPosts, kCategories] = await Promise.all([
-      searchInCollection("posts", keywords, ["title", "description"]),
-      searchInCategories(keywords),
+      searchInPosts("posts", keywords.value, ["title", "description"]),
+      searchInCategories(keywords.value),
     ]);
-    const kPages = searchInPages(keywords);
+    const kPages = searchInPages(keywords.value);
 
     posts.value = kPosts;
     categories.value = kCategories;
     pages.value = kPages;
   };
 
-  return { posts, categories, pages, updatedKeywords };
+  const updatedKeywords = (val: string) => {
+    keywords.value = val;
+    setSearchList();
+  };
+
+  return {
+    keywords,
+    posts,
+    categories,
+    pages,
+    updatedKeywords,
+    isShowSearchModal,
+  };
 };
 
 export default useSearch;
