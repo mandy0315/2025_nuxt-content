@@ -18,6 +18,7 @@ const useSearch = () => {
   const categories = useState<string[]>("searchCategories", () => []);
   const pages = useState<Page[]>("searchPages", () => []);
   const keywords = useState<string>("keywords", () => "");
+  const LIMIT_COUNT = 5; // 預設 5 筆列表
 
   // 搜尋文章
   const searchInPosts = async (
@@ -35,6 +36,9 @@ const useSearch = () => {
         })
         .select("title", "description", "path")
         .all();
+      if (keyword === "") {
+        return posts.slice(0, LIMIT_COUNT) || [];
+      }
       return posts;
     } catch (error) {
       console.error("搜尋文章錯誤", error);
@@ -44,7 +48,9 @@ const useSearch = () => {
   // 搜尋分類
   const searchInCategories = async (keyword: string) => {
     const categories = await getCategories();
-    if (keyword === "") return categories || [];
+    if (keyword === "") {
+      return categories.slice(0, LIMIT_COUNT) || [];
+    }
     return (
       categories?.filter((category) => {
         return category.toLowerCase().includes(keyword.toLowerCase());
