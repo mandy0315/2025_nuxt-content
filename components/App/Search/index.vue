@@ -54,7 +54,7 @@ const isShowSearchList = computed(() => {
       </div>
 
       <div
-        class="w-5/10 fixed top-32 transform -translate-x-1/2 left-1/2 bg-white dark:bg-gray-800 rounded-b border-l border-r border-gray-300 shadow-lg z-110  dark:border-gray-500"
+        class="w-5/10 fixed top-32 transform -translate-x-1/2 left-1/2 bg-white dark:bg-gray-800 rounded-b border-l border-r border-gray-300 shadow-lg z-110  dark:border-gray-500 h-140 overflow-y-scroll"
         :class="{ 'p-2 border-b': isShowSearchList }">
 
         <!-- 文章 -->
