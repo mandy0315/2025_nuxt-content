@@ -4,6 +4,7 @@ type Collection = "posts";
 interface Post {
   title: string;
   description: string;
+  path: string;
 }
 interface Page {
   title: string;
@@ -32,7 +33,7 @@ const useSearch = () => {
           }
           return q;
         })
-        .select("title", "description")
+        .select("title", "description", "path")
         .all();
       return posts;
     } catch (error) {
@@ -85,6 +86,12 @@ const useSearch = () => {
     setSearchList();
   };
 
+  const clearAllSearchList = () => {
+    posts.value = [];
+    categories.value = [];
+    pages.value = [];
+  };
+
   return {
     keywords,
     posts,
@@ -92,6 +99,7 @@ const useSearch = () => {
     pages,
     updatedKeywords,
     isShowSearchModal,
+    clearAllSearchList,
   };
 };
 
