@@ -1,0 +1,1 @@
+import{s as o,e as c,o as n,g as t,J as s}from"./BUqB5ooQ.js";const r={},_={class:"py-4"},a={class:"text-4xl text-center font-bold pb-4"},l={class:"text-lg text-center c-text-gray"};function d(e,i){return n(),c("div",_,[t("h1",a,[s(e.$slots,"default")]),t("p",l,[s(e.$slots,"directions")])])}const x=o(r,[["render",d]]);export{x as _};
