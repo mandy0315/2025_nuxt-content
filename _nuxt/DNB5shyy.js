@@ -1,1 +1,0 @@
-import{d as o,e as s,o as t,J as a}from"./BUqB5ooQ.js";const n=["disabled"],p=o({__name:"Button",props:{disabled:{type:Boolean,default:!1}},setup(d){return(e,l)=>(t(),s("button",{class:"c-rounded-btn",disabled:e.disabled},[a(e.$slots,"default")],8,n))}});export{p as _};
