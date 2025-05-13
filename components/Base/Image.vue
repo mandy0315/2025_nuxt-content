@@ -9,12 +9,10 @@ const props = defineProps<{
 const currentSrc = ref(props.src);
 
 const handleError = () => {
-  console.log('test', currentSrc.value);
   currentSrc.value = props.fallback || '/images/default-image.jpg';
 };
 </script>
 <template>
-  <ClientOnly>
-    <img :src="currentSrc" :alt :class="imgClass" @error="handleError" />
-  </ClientOnly>
+  <NuxtImg :src="currentSrc" :alt :class="imgClass" @error="handleError" />
+
 </template>
