@@ -4,7 +4,7 @@ const categories = await getCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
 const { updatePosts, posts, isLoading } = usePost();
-updatePosts(currentPage.value, currentSort.value);
+await useAsyncData('posts', () => updatePosts(currentPage.value, currentSort.value));
 
 watch([currentPage, currentSort], ([page, sort]) => {
   updatePosts(page, sort);
