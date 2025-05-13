@@ -7,7 +7,7 @@ const { goToCategoriesPage } = useCategory();
 
 // 文章
 const { data: post } = await useAsyncData('post', () => {
-  return queryCollection('posts').path(route.path).first();
+  return queryCollection('posts').path(`/posts/${route.params.slug}`).first();
 })
 
 // 上下篇文章
