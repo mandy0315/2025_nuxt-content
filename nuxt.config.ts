@@ -29,10 +29,5 @@ export default defineNuxtConfig({
     classSuffix: "", // dark mode 掛在 html
   },
 
-  app: {
-    baseURL:
-      process.env.NODE_ENV === "production" ? "/2025_nuxt-content/" : "/",
-  },
-
   compatibilityDate: "2025-02-17",
 });
