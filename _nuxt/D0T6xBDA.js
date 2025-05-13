@@ -1,0 +1,1 @@
+import{_ as r,c as o,o as s,f as c}from"./C_-Ao5nl.js";const a={},t={class:"bg-gray-200/20 px-2 py-1 rounded border border-gray-300 dark:bg-black/50"};function d(e,n){return s(),o("code",t,[c(e.$slots,"default")])}const l=r(a,[["render",d]]);export{l as default};

@@ -1,0 +1,1 @@
+import{d as o,c as s,o as t,f as a}from"./C_-Ao5nl.js";const n=["disabled"],c=o({__name:"Button",props:{disabled:{type:Boolean,default:!1}},setup(d){return(e,l)=>(t(),s("button",{class:"c-rounded-btn",disabled:e.disabled},[a(e.$slots,"default")],8,n))}});export{c as _};

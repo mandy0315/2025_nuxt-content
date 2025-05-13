@@ -1,1 +1,0 @@
-import{s as r,e as o,o as s,J as a}from"./CuyHRki9.js";const c={},t={class:"bg-gray-200/20 px-2 py-1 rounded border border-gray-300 dark:bg-black/50"};function d(e,n){return s(),o("code",t,[a(e.$slots,"default")])}const _=r(c,[["render",d]]);export{_ as default};
