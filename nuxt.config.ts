@@ -31,6 +31,11 @@ export default defineNuxtConfig({
 
   compatibilityDate: "2025-02-17",
 
+  app: {
+    baseURL:
+      process.env.NODE_ENV === "production" ? "/2025_nuxt-content/" : "/",
+  },
+
   nitro: {
     prerender: {
       crawlLinks: true, // 連結預先渲染

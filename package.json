@@ -7,7 +7,8 @@
     "dev": "nuxi dev",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
-    "postinstall": "nuxi prepare"
+    "postinstall": "nuxi prepare",
+    "gh:deploy": "gh-pages --dotfiles -d .output/public"
   },
   "dependencies": {
     "@nuxt/content": "^3.4.0",
@@ -27,6 +28,7 @@
     "@iconify-json/logos": "^1.2.4",
     "@iconify-json/solar": "^1.2.2",
     "@tailwindcss/typography": "^0.5.16",
+    "gh-pages": "^6.3.0",
     "sass": "^1.84.0"
   }
 }
