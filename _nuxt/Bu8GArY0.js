@@ -1,0 +1,1 @@
+import{d as t,e as o,o as s,K as n,J as a}from"./Cr-UwMNL.js";const p=t({__name:"Tag",props:{isAction:{type:Boolean,default:!1}},setup(l){return(e,r)=>(s(),o("button",{class:n(["c-rounded-btn rounded-2xl px-3 hover:text-c-light-blue",{"text-c-light-blue":e.isAction}])},[a(e.$slots,"default")],2))}});export{p as _};

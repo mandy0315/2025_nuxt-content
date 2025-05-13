@@ -1,1 +1,0 @@
-import{_ as o,c,o as n,g as e,f as s}from"./C_-Ao5nl.js";const r={},a={class:"py-4"},_={class:"text-4xl text-center font-bold pb-4"},l={class:"text-lg text-center c-text-gray"};function d(t,f){return n(),c("div",a,[e("h1",_,[s(t.$slots,"default")]),e("p",l,[s(t.$slots,"directions")])])}const p=o(r,[["render",d]]);export{p as default};
