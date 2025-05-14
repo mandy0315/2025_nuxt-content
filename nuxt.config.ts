@@ -32,6 +32,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-02-17",
 
   nitro: {
+    preset: "vercel",
     prerender: {
       crawlLinks: true, // 連結預先渲染
       routes: ["/", "/posts", "/categories/**"], // 預先渲染的路由
