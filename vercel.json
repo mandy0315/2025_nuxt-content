@@ -1,7 +1,7 @@
 {
   "buildCommand": "pnpm build",
   "outputDirectory": ".output",
-  "framework": "nuxt",
+  "framework": "nuxtjs",
   "regions": [
     "hkg1"
   ]
